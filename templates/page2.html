@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>知识图谱可视化</title>
+<meta charset="UTF-8">
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<link rel="stylesheet" href=" https://www.layuicdn.com/layui/css/layui.css">
+    <link th:href="${'/favicon.ico'}" rel="shortcut icon">
+    <link rel="stylesheet" href="../static/page1.css">
+    <style>
+        #index {
+                display: inline-block;
+    left: 0px;
+    width: 1540px;
+    height: 80px;
+    background-color: rgba(255,255,255,100);
+    box-shadow: 0px 2px 8px 5px rgba(0,0,0,1);
+        }
+        </style>
+</head>
+
+<body  style="width: 1540px;height:600px;margin: 0px auto">
+<div class="index">
+        <p id="header">粤港澳智慧旅游资源管理系统</p>
+    <div class="sub_index index_1">
+        <div style="position: absolute;left: 0;top: 0">
+        <img style="float: left" src="../static/logo/storage.png">
+        </div>
+        <div style="position: absolute;left: 50px;top:2px">
+            <p style="cursor: default"><a href="/">首页</a></p>
+            </div>
+    </div>
+    <div class="sub_index index_2" id="briefIntroduce">
+        <div style="position: absolute;left: 0;top: 0">
+        <img style="float: left" src="../static/logo/fancy.png">
+        </div>
+        <div style="position: absolute;left: 50px;top:2px">
+        <p style="cursor: default" >功能概述</p>
+        </div>
+    </div>
+    <div class="sub_index index_3">
+        <div style="position: absolute;left: 0;top: 0">
+        <img style="float: left" src="../static/logo/us.png">
+        </div>
+        <div style="position: absolute;left: 50px;top:2px">
+        <p style="cursor: default">关于我们</p>
+        </div>
+    </div>
+</div>
+<table id="minitable" hidden>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="/kgmap" >知识图谱展现</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#visual">数据可视化展示</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a>实时流量监控</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#bot">问答机器人</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#recom">旅游景点推荐</a></th>
+    </tr>
+        <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="http://127.0.0.1:5001">轨迹可视化</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a>更多功能</a></th>
+    </tr>
+</table>
+<div id="query" style="width: 1540px;z-index:999;height: 80px;background-color:white;position: relative;margin-top: 30px">
+<div style="position: relative;margin-left: 10px ;float: left">
+<label style="float: left;margin-left:0px;position: absolute;padding-top:5px;width: 100px;height: 30px;font-family: Roboto">选择旅游时间</label>
+<input type="text"  style="float: left;margin-left:150px;padding-left: 20px;width: 200px;height: 30px" id="test1">
+</div>
+<div style="float: left;position: relative;margin-left: 80px;">
+<label style="float: left;position: absolute;padding-top: 5px;width:100px;height: 30px;font-family: Roboto ">选择旅游类型</label>
+    <button class="layui-btn layui-btn-primary" id="demo1" style="float:left;width:300px;height:40px;position:relative;margin-left: 120px;margin-top: -2px">
+        <span  id="btntext1" style="float: left">所要的旅游类型都在这里</span>
+      <i class="layui-icon layui-icon-down layui-font-12" style="float: right"></i>
+    </button>
+</div>
+<div style="float: left;position: relative;margin-left: 80px;">
+<label style="float: left;position: absolute;padding-top: 5px;width:100px;height: 30px;font-family: Roboto ">选择旅游类型</label>
+    <button class="layui-btn layui-btn-primary" id="demo2" style="float:left;width:300px;height:40px;position:relative;margin-left: 120px;margin-top: -2px">
+        <span  id="btntext2" style="float: left">所要的旅游类型都在这里</span>
+      <i class="layui-icon layui-icon-down layui-font-12" style="float: right"></i>
+    </button>
+</div>
+<button  id="sureBtn" style="margin-left: 40px;background-color: #00aeff" class="layui-btn layui-btn-warm layui-btn-sm">确认</button>
+</div>
+<div id="main" style="width:1000px;margin-top:10px;height:800px;position: absolute;background-color: #00aeff">
+</div>
+<img id="hide" src="../static/logo/in.png" style="position: absolute;left: 960px;top: 600px">
+<div id="side" style="width: 540px;height: 800px;position: absolute;margin-top: 10px;margin-left:1000px">
+    <h2 id="find" ></h2>
+    <div style="float: left;position: relative;">
+    <button class="layui-btn layui-btn-primary" id="demo3" style="float:left;width:250px;height:30px;margin-top:15px;margin-left:80px;position:relative;">
+    <span  id="btntext3" style="float: left;margin-top: -4px">请选择排序方式</span>
+    <i class="layui-icon layui-icon-down layui-font-12" style="float: right;margin-top: -4px"></i>
+    </button>
+</div>
+  <button  id="sureBtn1" style="margin-left: 40px;background-color: #00aeff;margin-top: 15px" class="layui-btn layui-btn-warm layui-btn-sm">重置</button>
+  <div class="layui-collapse" style="margin-top: 15px" id="list" lay-filter="getre" lay-accordion>
+
+</div>
+</div>
+<script>
+    var node
+    var relation
+    var node1=node
+    var btn=document.getElementById("sureBtn")
+    btn.addEventListener('click',function ()
+    {
+        var text=document.getElementById("btntext")
+        console.log(sessionStorage.getItem('type'))
+        var data={'startmonth':sessionStorage.getItem('startday'),'endmonth':sessionStorage.getItem('endday'),'type':sessionStorage.getItem('type')}
+        $.ajax({
+            type:"GET",
+            url:"http://127.0.0.1:5000/travalEdge",
+            data:data,
+            success:function (data){
+                node=data['node']
+                relation=data['relation']
+                console.log(data)
+                draw(data['node'],data['relation'],[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
+                var main=document.getElementById("main")
+                main.style.backgroundColor="rgb(249,252,255)"
+                drawllist(node)
+            }
+        })
+    })
+    var surebtn=document.getElementById("sureBtn1")
+    var nodelist=document.querySelector("#list")
+    surebtn.addEventListener('click',function ()
+    {
+
+        var surebtntext=document.getElementById("btntext3").innerHTML
+        if (surebtntext=="按照旅游金额排序")
+        {
+            var temp=[]
+            for(i=0;i<node.length;i++)
+            {
+                if(node[i]['category']=='7')
+                {
+               temp.push(node[i])
+            }
+        }
+function quickSort(arr) {
+  let length = arr.length;
+
+  if (length <= 1) {
+    return arr;
+  }
+  var reg = /\d+/g;
+  let leftArr = [], rightArr = [], q = Number(arr[0]['cost'].match(reg));
+  for (let i = 1; i < length; i++) {
+    let item = Number(arr[i]['cost'].match(reg));
+    item < q ? leftArr.push(arr[i]) : rightArr.push(arr[i]);
+  }
+  return [].concat(quickSort(leftArr), arr[0], quickSort(rightArr));
+}
+drawllist(quickSort(temp))
+    }
+    })
+</script>
+<script>
+    /*
+    菜单栏点击事件，实现功能：
+    1、鼠标放在菜单，下拉栏展示；
+    2、在下拉栏展示的情况下，鼠标移开，下拉栏关闭
+     */
+
+    var introduce=document.getElementById("briefIntroduce");
+    var table=document.getElementById("minitable")
+    var t=1
+
+    introduce.addEventListener('click',function (e){
+        table.hidden=false
+        if(table.hidden==false)
+            table.addEventListener('mouseleave',function (e){
+                table.hidden=true
+            })
+
+    })
+
+</script>
+<script>
+    function drawllist(node)
+    {
+    var title=document.getElementById("find")
+        title.innerHTML="共找到"+node.length+"条相关记录"
+    {
+        while(nodelist.firstChild){
+            nodelist.removeChild(nodelist.firstChild)
+        }
+        var j=1
+        for(i=0;i<node.length;i++)
+        {
+            if(node[i]['category']=='7')
+            {
+                var linode=document.createElement("div")
+                linode.className="layui-colla-item"
+                linode.id=node[i]['id'].toString()
+                linode.addEventListener('click',function (){
+                    console.log(this.id)
+                    $.ajax({
+                        type:'GET',
+                        url:"http://127.0.0.1:5000/getindex",
+                        data:{'id':this.id},
+                        success:function (data1){
+                            draw(data1['node'],data1['relation'],[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
+
+                        }
+
+                    })
+                })
+                var head=document.createElement("h2")
+                head.className="layui-colla-title"
+                head.innerHTML="记录"+j.toString()
+                j=j+1
+                linode.appendChild(head)
+                content=document.createElement("div")
+                content.className="layui-colla-content"
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="旅游类型"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['companion']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="花费"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['cost']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="时间"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['date']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="时长"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['day']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+
+                nodelist.appendChild(linode)
+            }
+
+
+        }
+                     layui.use('element', function () {
+            var element = layui.element;
+            layui.element.render()
+        })
+
+    }
+    }
+</script>
+<script>
+layui.use('laydate',function (){
+    var laydate=layui.laydate
+          laydate.set({
+    //trigger: 'focus'
+  })
+      laydate.render({
+    elem: '#test1'
+    ,type: 'month'
+    ,range: true
+    ,trigger: 'click'
+    ,done: function(value, date, endDate){
+      sessionStorage.setItem('startday',date['month'].toString())
+      sessionStorage.setItem('endday',endDate['month'].toString())
+
+    }
+    ,change: function(value, date, endDate){
+      //this.elem.val(value)
+    sessionStorage.setItem('startday',date['month'].toString())
+    sessionStorage.setItem('endday',endDate['month'].toString())
+    }
+  });
+})
+layui.use('dropdown',function () {
+    var dropdown=layui.dropdown;
+dropdown.render({
+    elem: '#demo1'
+    //,show: true
+    ,data: [{
+      title: '美食'
+      ,href: '#1'
+    },{
+      title: '娱乐'
+      ,href: '#2'
+    },{
+      title: '购物'
+      ,href: '#3'
+    },
+    {
+      title: '住宿'
+      ,href: '#3'
+    },
+    {
+      title: '旅游'
+      ,href: '#3'
+    }],
+    click: function(e){
+        var btn=document.getElementById("btntext1")
+                btn.innerHTML=e['title']
+        sessionStorage.setItem('type',e['title'])
+
+    }
+
+  });
+
+})
+layui.use('dropdown',function () {
+    var dropdown=layui.dropdown;
+        console.log(dropdown)
+dropdown.render({
+    elem: '#demo2'
+    //,show: true
+    ,data: [{
+      title: '美食'
+      ,href: '#1'
+    },{
+      title: '娱乐'
+      ,href: '#2'
+    },{
+      title: '购物'
+      ,href: '#3'
+    },
+    {
+      title: '住宿'
+      ,href: '#3'
+    },
+    {
+      title: '旅游'
+      ,href: '#3'
+    }],
+    click: function(e){
+        var btn=document.getElementById("btntext2")
+                btn.innerHTML=e['title']
+
+    }
+
+  });
+
+})
+layui.use('dropdown',function () {
+    var dropdown=layui.dropdown;
+dropdown.render({
+    elem: '#demo3'
+    //,show: true
+    ,data: [{
+      title: '按照旅游金额排序'
+      ,href: '#1'
+    },{
+      title: '按照时间排序'
+      ,href: '#2'
+    }],
+    click: function(e){
+        var btn=document.getElementById("btntext3")
+                btn.innerHTML=e['title']
+
+    }
+
+  });
+
+})
+</script>
+<script >
+    function draw(da,lin,cat) {
+        var myChart = echarts.init(document.getElementById('main'));
+  option = {
+    title: {
+      subtext: 'Default layout',
+      top: 'bottom',
+        tooltip:{
+          formatter:function (x){
+              return x.data.name
+          }
+        },
+      left: 'right'
+    },
+      lineStyle:{
+        normal:{
+            width:30,
+            color:'#4b565b'
+        }
+      },
+color: ["#5470c6",
+ "#91cc75",
+ "#fac858",
+  "#ee6666",
+"#73c0de",
+"#3ba272",
+"#fc8452",
+"#9a60b4",
+"#ea7ccc"],
+      focusNodeAdjacency: true,
+    tooltip: {},
+    legend: [
+      {
+        data: cat.map(function (a) {
+          return a.name;
+        })
+      }
+    ],
+    series: [
+      {
+        type: 'graph',
+        layout: 'force',
+        data: da,
+        links: lin,
+        categories: cat,
+        roam: true,
+        label: {
+          position: 'right'
+        },
+          draggable:true,
+          symbolSize:60,
+          edgeSymbol: ['circle','arrow'],
+          edgeSymbolSize: [4,10],
+        force: {
+          repulsion: 10000
+
+        },
+        edgeLabel: {
+            normal:{
+                show:true,
+                formatter:function (x){
+                    return x.data.name;
+                }
+            }
+        },
+          Label:{
+            normal:{
+                show:true,
+                formatter:function (x){
+                    return x.data.name
+                }
+            }
+          }
+      }
+    ]
+  };
+
+        myChart.setOption(option);
+    }
+</script>
+<script>
+    btn=document.getElementById("hide")
+    console.log(window)
+    btn.addEventListener('click',function (){
+        var side=document.getElementById("side")
+        var main=document.getElementById("main")
+        if(side.hidden==false)
+        {
+        main.style.width="1540px"
+        btn.style.left="1500px"
+        btn.src="../static/logo/out.png"
+        side.hidden=true
+
+        }
+        else
+        {
+            main.style.width="1000px"
+            btn.style.left="960px"
+            btn.src="../static/logo/in.png"
+            side.hidden=false
+        }
+        //draw(node,relation,[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
+
+    })
+</script>
+
+</body>
+</html>

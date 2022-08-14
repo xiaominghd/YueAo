@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>实验室展示主页面</title>
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js"></script>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css">
+<link th:href="${'/favicon.ico'}" rel="shortcut icon">
+<link rel="stylesheet" href="../static/page1.css">
+</head>
+<body style="width: 1540px;height: 2558px;margin: 0px auto">
+<div class="index" >
+    <!--导航栏-->
+    <p id="header">粤港澳智慧旅游资源管理系统</p>
+    <!--标题-->
+    <div class="sub_index index_1">
+        <!--“首页”+“房子logo”-->
+        <div style="position: absolute;left: 0;top: 0">
+        <img style="float: left" src="../static/logo/storage.png">
+        </div>
+        <div style="position: absolute;left: 50px;top:2px">
+            <p style="cursor: default"><a href="/">首页</a></p>
+            </div>
+    </div>
+    <div class="sub_index index_2" id="briefIntroduce">
+    <!--“功能概述”+“正方体logo”-->
+        <div style="position: absolute;left: 0;top: 0">
+        <img style="float: left" src="../static/logo/fancy.png">
+        </div>
+        <div style="position: absolute;left: 50px;top:2px">
+        <p style="cursor: auto" >功能概述</p>
+        </div>
+    </div>
+    <div class="sub_index index_3">
+        <!--"关于我们"+“人头logo”-->
+        <div style="position: absolute;left: 0;top: 0">
+        <img style="float: left" src="../static/logo/us.png">
+        </div>
+        <div style="position: absolute;left: 50px;top:2px">
+        <p style="cursor: default">关于我们</p>
+        </div>
+    </div>
+</div>
+<table id="minitable" hidden>
+    <!--下拉框，绑定了点击事件-->
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="/kgmap" >知识图谱展现</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#visual">数据可视化展示</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#jiankong">实时流量监控</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#bot">问答机器人</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="#recom">旅游景点推荐</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a href="http://127.0.0.1:5001">轨迹可视化</a></th>
+    </tr>
+    <tr style="width: 250px;height: 38px;">
+        <th style="font-size: 16px;font-weight: normal;font-family:Roboto" ><a>更多功能</a></th>
+    </tr>
+</table>
+<div id="playphoto">
+<div class="layui-carousel" id="test10">
+    <!--轮播图-->
+        <div carousel-item>
+            <!--轮播图图片位置-->
+
+            <div><img src="/static/playphoto/img1.png"></div>
+
+            <div><img src="/static/playphoto/img2.png"></div>
+
+            <div><img src="/static/playphoto/img3.png"></div>
+
+        </div>
+
+ </div>
+</div>
+<div style="width: 1540px;height: 120px;margin-top: 500px">
+    <!--“功能展示”-->
+    <p style="text-align: center;padding-top: 39px;font-size: 28px;font-family: Roboto;font-weight: bold;letter-spacing: 20px">功能展示</p>
+</div>
+<div class="briefpohoto">
+    <!--功能展示细节部分 第一行-->
+    <div class="photobox">
+        <div style="padding-top: 26px"><img  src="../static/logo/kgmap.png"></div>
+        <a href="#kgmap"><p class="introudceminiword">知识图谱展现</p></a>
+    </div>
+    <div class="photobox">
+        <div style="padding-top: 26px"><img src="../static/logo/visual.png"></div>
+        <a href="#visual"><p class="introudceminiword">数据可视化</p></a>
+
+    </div>
+    <div class="photobox">
+                <div style="padding-top: 26px"><img src="../static/logo/robbot.png"></div>
+        <a href="#bot"><p class="introudceminiword">问答机器人</p></a>
+    </div>
+
+</div>
+<div class="briefpohoto">
+    <!--功能展示细节部分 第二行-->
+    <div class="photobox">
+        <div style="padding-top: 26px"><img src="../static/logo/recommondate.png"></div>
+            <a href="#recom"><p class="introudceminiword">旅游景点推荐</p></a>
+    </div>
+    <div class="photobox">
+        <div style="padding-top: 26px"><img src="../static/logo/flowsupervise.png"></div>
+        <p class="introudceminiword">实时流量监控</p>
+    </div>
+    <div class="photobox">
+        <div style="padding-top: 26px"><img src="../static/logo/more.png"></div>
+        <p class="introudceminiword">更多功能</p>
+    </div>
+</div>
+<div class="detail">
+    <div class="left">
+        <a name="kgmap"  href="#" class="detail_title">知识图谱展现</a>
+        <div style="padding-top: 3%"></div>
+        <p class="detail_introuduce">TravalIEG是基于粤澳旅游数据所设计的知识图谱</p>
+        <p class="detail_introuduce">基于Neo4j提供交互式的操作平台</p>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  观察知识图谱</a>
+        </div>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  查询指定行程</a>
+        </div>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  制定旅行规划</a>
+        </div>
+    </div>
+    <div class="right">
+        <img src="../static/workphoto/kg.png">
+        <div style="padding-right: 2%">
+    </div>
+
+</div>
+</div>
+<div class="detail" style="background-color: #F7F6F5">
+    <div class="left1">
+                <img style="float: left" src="../static/workphoto/vasual.png">
+    </div>
+    <div class="right1">
+        <a name="visual" href="#"><p class="detail_title">数据可视化展示</p></a>
+        <div style="padding-top: 3%"></div>
+        <p class="detail_introuduce">粤澳旅行经典数据统计</p>
+        <p class="detail_introuduce">基于echatrs的个性化数据可视化展示模块</p>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  观察数据变化</a>
+        </div>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  自定义进行数据修改</a>
+        </div>
+    </div>
+</div>
+<div class="detail">
+    <div class="left">
+        <a name="bot" href="#"><p class="detail_title">问答机器人</p></a>
+        <div style="padding-top: 3%"></div>
+        <p class="detail_introuduce">基于知识图谱的问答机器人</p>
+        <p class="detail_introuduce">可进行个性化旅游景点推荐</p>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  提供个性化旅游景点推荐策略</a>
+        </div>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  指定合理的行程规划</a>
+        </div>
+    </div>
+    <div class="right">
+        <img style="float: right" src="../static/workphoto/robot.png">
+</div>
+</div>
+<div class="detail"style="background-color: #F7F6F5 ">
+    <div class="left1">
+                <img src="../static/workphoto/recommandate.png">
+    </div>
+    <div class=right1">
+        <a name="recom" href="#"><p class="detail_title">旅游景点推荐</p></a>
+        <div style="padding-top: 3%"></div>
+        <p class="detail_introuduce">基于游记数据的推荐系统</p>
+        <p class="detail_introuduce">帮助进行旅游规划</p>
+        <p class="detail_introuduce">模块介绍</p>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  根据用户旅游偏好设计规划路线</a>
+        </div>
+        <div style="margin-top: 10px">
+            <a class="point">*</a>
+            <a class="work">  提供数据库在线修改功能</a>
+        </div>
+
+    </div>
+</div>
+<a id="back_top" href="script:;">
+  <span>⌆</span>
+</a>
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js"></script>
+<script>
+    /*
+    菜单栏点击事件，实现功能：
+    1、鼠标放在菜单，下拉栏展示；
+    2、在下拉栏展示的情况下，鼠标移开，下拉栏关闭
+     */
+    var introduce=document.getElementById("briefIntroduce")
+    var table=document.getElementById("minitable")
+
+    introduce.addEventListener('click',function (){
+        table.hidden=false
+        if(table.hidden==false) //在下拉栏显示的情况下，才触发鼠标移开事件
+            table.addEventListener('mouseleave',function (){
+                table.hidden=true
+            })
+    })
+
+</script>
+<script>
+    /*
+    返回顶部按钮。实现功能：
+    1、在窗口滚动距离超过200px时，显示按钮
+    2、点击按钮，页面返回顶部，同时按钮消失
+     */
+
+    $(function(){
+	$(window).scroll(function(){  //只要窗口滚动,就触发下面代码
+		var scrollt = document.documentElement.scrollTop + document.body.scrollTop; //获取滚动后的高度
+
+		if( scrollt >200 ){  //判断滚动后高度超过200px,就显示
+			$("#back_top").fadeIn(400); //淡出
+		}else{
+			$("#back_top").stop().fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动
+		}
+	});
+
+	$("#back_top").click(function(){ //当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部
+			$("html,body").animate({scrollTop:"0px"},300);
+	});
+
+});
+
+</script>
+<script>
+    /*
+    图片轮播功能，采用了Layui中的‘carsoul’模块
+     */
+
+    layui.use(['carousel', 'form'], function () {
+        var carousel = layui.carousel
+            , form = layui.form;
+        //图片轮播
+        carousel.render({
+            elem: '#test10'
+            , width: '1540px'
+            , height: '500px'
+            , interval: 2000      //切换图片时间
+        });
+    });
+</script>
+</body>
+</html>
