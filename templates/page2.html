@@ -109,243 +109,41 @@
 
 </div>
 </div>
-<script>
-    var node
-    var relation
-    var node1=node
-    var btn=document.getElementById("sureBtn")
-    btn.addEventListener('click',function ()
-    {
-        var text=document.getElementById("btntext")
-        console.log(sessionStorage.getItem('type'))
-        var data={'startmonth':sessionStorage.getItem('startday'),'endmonth':sessionStorage.getItem('endday'),'type':sessionStorage.getItem('type')}
-        $.ajax({
-            type:"GET",
-            url:"http://127.0.0.1:5000/travalEdge",
-            data:data,
-            success:function (data){
-                node=data['node']
-                relation=data['relation']
-                console.log(data)
-                draw(data['node'],data['relation'],[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
-                var main=document.getElementById("main")
-                main.style.backgroundColor="rgb(249,252,255)"
-                drawllist(node)
-            }
-        })
-    })
-    var surebtn=document.getElementById("sureBtn1")
-    var nodelist=document.querySelector("#list")
-    surebtn.addEventListener('click',function ()
-    {
-
-        var surebtntext=document.getElementById("btntext3").innerHTML
-        if (surebtntext=="按照旅游金额排序")
-        {
-            var temp=[]
-            for(i=0;i<node.length;i++)
-            {
-                if(node[i]['category']=='7')
-                {
-               temp.push(node[i])
-            }
-        }
-function quickSort(arr) {
-  let length = arr.length;
-
-  if (length <= 1) {
-    return arr;
-  }
-  var reg = /\d+/g;
-  let leftArr = [], rightArr = [], q = Number(arr[0]['cost'].match(reg));
-  for (let i = 1; i < length; i++) {
-    let item = Number(arr[i]['cost'].match(reg));
-    item < q ? leftArr.push(arr[i]) : rightArr.push(arr[i]);
-  }
-  return [].concat(quickSort(leftArr), arr[0], quickSort(rightArr));
-}
-drawllist(quickSort(temp))
-    }
-    })
-</script>
+<!--Layui三个选择下拉框事件-->
 <script>
     /*
-    菜单栏点击事件，实现功能：
-    1、鼠标放在菜单，下拉栏展示；
-    2、在下拉栏展示的情况下，鼠标移开，下拉栏关闭
+    日期下拉框，实现以下功能：
+    1、点击下拉框，选择开始日期和结束日期
+    2、在选择结束之后将选择的结果保存在sessionstorage中
      */
-
-    var introduce=document.getElementById("briefIntroduce");
-    var table=document.getElementById("minitable")
-    var t=1
-
-    introduce.addEventListener('click',function (e){
-        table.hidden=false
-        if(table.hidden==false)
-            table.addEventListener('mouseleave',function (e){
-                table.hidden=true
-            })
-
-    })
-
-</script>
-<script>
-    function drawllist(node)
-    {
-    var title=document.getElementById("find")
-        title.innerHTML="共找到"+node.length+"条相关记录"
-    {
-        while(nodelist.firstChild){
-            nodelist.removeChild(nodelist.firstChild)
-        }
-        var j=1
-        for(i=0;i<node.length;i++)
-        {
-            if(node[i]['category']=='7')
-            {
-                var linode=document.createElement("div")
-                linode.className="layui-colla-item"
-                linode.id=node[i]['id'].toString()
-                linode.addEventListener('click',function (){
-                    console.log(this.id)
-                    $.ajax({
-                        type:'GET',
-                        url:"http://127.0.0.1:5000/getindex",
-                        data:{'id':this.id},
-                        success:function (data1){
-                            draw(data1['node'],data1['relation'],[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
-
-                        }
-
-                    })
-                })
-                var head=document.createElement("h2")
-                head.className="layui-colla-title"
-                head.innerHTML="记录"+j.toString()
-                j=j+1
-                linode.appendChild(head)
-                content=document.createElement("div")
-                content.className="layui-colla-content"
-                {
-                    item1=document.createElement("div")
-                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
-                    type=document.createElement("div")
-                    type.style="position: absolute;float: left;width: 160px;height: 20px"
-                    typekey=document.createElement("a")
-                    typekey.style="font-size: 16px;font-weight: bold"
-                    typekey.innerHTML="旅游类型"
-                    type.appendChild(typekey)
-                    typename=document.createElement("div")
-                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
-                    a=document.createElement("a")
-                    a.style="font-size: 16px"
-                    a.innerHTML=node[i]['companion']
-                    typename.appendChild(a)
-                    item1.appendChild(type)
-                    item1.appendChild(typename)
-                    content.appendChild(item1)
-                    linode.appendChild(content)
-                }
-                {
-                    item1=document.createElement("div")
-                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
-                    type=document.createElement("div")
-                    type.style="position: absolute;float: left;width: 160px;height: 20px"
-                    typekey=document.createElement("a")
-                    typekey.style="font-size: 16px;font-weight: bold"
-                    typekey.innerHTML="花费"
-                    type.appendChild(typekey)
-                    typename=document.createElement("div")
-                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
-                    a=document.createElement("a")
-                    a.style="font-size: 16px"
-                    a.innerHTML=node[i]['cost']
-                    typename.appendChild(a)
-                    item1.appendChild(type)
-                    item1.appendChild(typename)
-                    content.appendChild(item1)
-                    linode.appendChild(content)
-                }
-                {
-                    item1=document.createElement("div")
-                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
-                    type=document.createElement("div")
-                    type.style="position: absolute;float: left;width: 160px;height: 20px"
-                    typekey=document.createElement("a")
-                    typekey.style="font-size: 16px;font-weight: bold"
-                    typekey.innerHTML="时间"
-                    type.appendChild(typekey)
-                    typename=document.createElement("div")
-                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
-                    a=document.createElement("a")
-                    a.style="font-size: 16px"
-                    a.innerHTML=node[i]['date']
-                    typename.appendChild(a)
-                    item1.appendChild(type)
-                    item1.appendChild(typename)
-                    content.appendChild(item1)
-                    linode.appendChild(content)
-                }
-                {
-                    item1=document.createElement("div")
-                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
-                    type=document.createElement("div")
-                    type.style="position: absolute;float: left;width: 160px;height: 20px"
-                    typekey=document.createElement("a")
-                    typekey.style="font-size: 16px;font-weight: bold"
-                    typekey.innerHTML="时长"
-                    type.appendChild(typekey)
-                    typename=document.createElement("div")
-                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
-                    a=document.createElement("a")
-                    a.style="font-size: 16px"
-                    a.innerHTML=node[i]['day']
-                    typename.appendChild(a)
-                    item1.appendChild(type)
-                    item1.appendChild(typename)
-                    content.appendChild(item1)
-                    linode.appendChild(content)
-                }
-
-                nodelist.appendChild(linode)
-            }
-
-
-        }
-                     layui.use('element', function () {
-            var element = layui.element;
-            layui.element.render()
-        })
-
-    }
-    }
-</script>
-<script>
-layui.use('laydate',function (){
+    layui.use('laydate',function (){
     var laydate=layui.laydate
-          laydate.set({
-    //trigger: 'focus'
-  })
-      laydate.render({
+
+    laydate.render({
     elem: '#test1'
     ,type: 'month'
     ,range: true
     ,trigger: 'click'
+
     ,done: function(value, date, endDate){
       sessionStorage.setItem('startday',date['month'].toString())
       sessionStorage.setItem('endday',endDate['month'].toString())
-
     }
     ,change: function(value, date, endDate){
-      //this.elem.val(value)
     sessionStorage.setItem('startday',date['month'].toString())
     sessionStorage.setItem('endday',endDate['month'].toString())
-    }
-  });
-})
-layui.use('dropdown',function () {
+    }   //选定和改变都更新内存中的值
+    });
+    })
+    /*
+    旅游类型下拉框，实现以下功能：
+    1、点击下拉框，选择指定的旅游类型
+    2、在选择结束之后将选择的结果保存在sessionstorage中
+     */
+    layui.use('dropdown',function () {
     var dropdown=layui.dropdown;
-dropdown.render({
+
+    dropdown.render({
     elem: '#demo1'
     //,show: true
     ,data: [{
@@ -366,20 +164,24 @@ dropdown.render({
       title: '旅游'
       ,href: '#3'
     }],
+
     click: function(e){
         var btn=document.getElementById("btntext1")
                 btn.innerHTML=e['title']
         sessionStorage.setItem('type',e['title'])
 
-    }
-
+    }   //选定之后将结果存放在sessionstorage中，key为’title‘
   });
 
 })
-layui.use('dropdown',function () {
+    /*
+    旅游类型下拉框2，实现以下功能：
+    1、点击下拉框，选择指定的旅游类型
+    2、在选择结束之后将选择的结果保存在sessionstorage中
+     */
+    layui.use('dropdown',function () {
     var dropdown=layui.dropdown;
-        console.log(dropdown)
-dropdown.render({
+    dropdown.render({
     elem: '#demo2'
     //,show: true
     ,data: [{
@@ -409,9 +211,13 @@ dropdown.render({
   });
 
 })
-layui.use('dropdown',function () {
+    /*
+    排序下拉框，实现以下功能：
+    1、选择排序方式
+     */
+    layui.use('dropdown',function () {
     var dropdown=layui.dropdown;
-dropdown.render({
+    dropdown.render({
     elem: '#demo3'
     //,show: true
     ,data: [{
@@ -421,20 +227,317 @@ dropdown.render({
       title: '按照时间排序'
       ,href: '#2'
     }],
+
     click: function(e){
         var btn=document.getElementById("btntext3")
                 btn.innerHTML=e['title']
-
-    }
+    }   //选定结果之后，改变下拉框中的占位符
 
   });
 
 })
 </script>
-<script >
+<!--侧边栏收缩展开-->
+<script>
+    /*
+    侧边栏展开与收缩事件：
+    1、在收缩的情况下点开，侧边栏进行展示
+    2、在展开的情况下点开，侧边栏进行收缩
+     */
+    btn=document.getElementById("hide")
+
+    btn.addEventListener('click',function (){
+        var side=document.getElementById("side")
+        var main=document.getElementById("main")
+        if(side.hidden==false)  //在展示的时候点开，改变main盒子的尺寸，侧边栏收缩
+        {
+        main.style.width="1540px"
+        btn.style.left="1500px"
+        btn.src="../static/logo/out.png"
+        side.hidden=true
+        }
+        else    //在收缩的时候点开，改变main盒子的尺寸，侧边栏展开
+        {
+            main.style.width="1000px"
+            btn.style.left="960px"
+            btn.src="../static/logo/in.png"
+            side.hidden=false
+        }
+    })
+</script>
+<!--确定按钮事件-->
+<script>
+    /*
+    确定按钮事件，包括以下功能：
+    1、点击确定按钮后，获取下拉栏提交的信息
+    2、将提交信息通过ajax发送给后端，进行查询
+    3、获取后端返回的数据，进行展示
+     */
+    var node
+    var relation
+    var node1=node
+    var btn=document.getElementById("sureBtn")
+
+    btn.addEventListener('click',function ()
+    {
+        var data={'startmonth':sessionStorage.getItem('startday'),'endmonth':sessionStorage.getItem('endday'),'type':sessionStorage.getItem('type')}        //在网页的存储中去获得当前输入的信息。
+        /*
+        ajax，前后端交互部分
+         */
+        $.ajax({
+            type:"GET",
+            url:"http://127.0.0.1:5000/travalEdge", //后端相应的位置，对应app.py部分
+            data:data, //传给后端的数据
+            success:function (data){
+                /*
+                处理后端的返回，data的形式是({'node':nodelist,'relation':relation})
+                 */
+                node=data['node']
+                relation=data['relation']
+
+                draw(data['node'],data['relation'],[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])//调用draw函数，进行展示
+
+                var main=document.getElementById("main")
+                main.style.backgroundColor="rgb(249,252,255)" //设置展示背景为微灰
+
+                drawlist(node) //将travel信息放在侧边栏进行展示
+            }
+        })
+    })
+    </script>
+<!--侧边栏确定按钮事件-->
+<script>
+    /*
+    侧边栏点击事件，实现以下功能：
+    1、点击侧边栏确定按钮，按照指定的方式对旅行结果进行排序
+    2、按照排序之后的顺序进行展示
+    功能尚未完善，因为这里只写按照金额排序，还有按照时间排序等等
+     */
+    var surebtn=document.getElementById("sureBtn1")
+    var nodelist=document.querySelector("#list")
+
+    surebtn.addEventListener('click',function ()
+    {
+        var surebtntext=document.getElementById("btntext3").innerHTML //获取选择的排序方式
+        if (surebtntext=="按照旅游金额排序")
+        {
+
+            var temp=[]
+            for(i=0;i<node.length;i++)
+            {
+                if(node[i]['category']=='7')
+                {
+               temp.push(node[i])
+                }
+            } //选出对应的travel节点
+
+            /*
+            quicksort 快速排序
+            指定key，并对travel按照key进行排序
+             */
+            function quickSort(arr)
+            {
+              let length = arr.length;
+
+              if (length <= 1) {
+                return arr;
+              }
+              var reg = /\d+/g;
+              let leftArr = [], rightArr = [], q = Number(arr[0]['cost'].match(reg)); //正则表达，选出指定位置的所有数字，这里是需要改的，就是要选择哪一部分作为你排序的key
+              for (let i = 1; i < length; i++) {
+                let item = Number(arr[i]['cost'].match(reg));
+                item < q ? leftArr.push(arr[i]) : rightArr.push(arr[i]);
+              }
+              return [].concat(quickSort(leftArr), arr[0], quickSort(rightArr)); //快排
+            }
+            drawlist(quickSort(temp))//将经过排序之后的数据放在侧边栏进行展示
+    }
+    })
+</script>
+<!--顶部菜单栏点击事件-->
+<script>
+    /*
+    菜单栏点击事件，实现功能：
+    1、鼠标放在菜单，下拉栏展示；
+    2、在下拉栏展示的情况下，鼠标移开，下拉栏关闭
+     */
+
+    var introduce=document.getElementById("briefIntroduce");
+    var table=document.getElementById("minitable")
+    var t=1
+
+    introduce.addEventListener('click',function (e){
+        table.hidden=false
+        if(table.hidden==false) //在下拉栏显示的情况下，才触发鼠标移开事件
+            table.addEventListener('mouseleave',function (e){
+                table.hidden=true
+            })
+
+    })
+
+</script>
+<!--drawlist函数定义-->
+<script>
+    /*
+    侧边栏展示函数，使用了js中的创建节点和添加节点两种方式实现：
+    1、在展示前先对目标区域进行清屏
+    2、对于每一个travel节点，创建展示栏，并将其插入到对应的位置
+    3、再对每一个下拉栏绑定事件，当有点击的时候，着重展示对应的旅行
+    3、使用layui渲染下拉效果
+     */
+    function drawlist(node)
+    {
+        //    var nodelist=document.querySelector("#list") 这个是在上面定义的全局变量
+        //    在每一次开始的时候就要清屏，使用的方法是查询孩子节点，查到一个，就删一个
+        while(nodelist.firstChild)
+        {
+            nodelist.removeChild(nodelist.firstChild)
+        }
+
+        var j=1
+        for(i=0;i<node.length;i++)
+        {
+            if(node[i]['category']=='7')    //针对一个旅行节点
+            {
+                var linode=document.createElement("div")
+                linode.className="layui-colla-item"    //创建一个下拉栏
+                linode.id=node[i]['id'].toString()  //下拉栏的id是travel节点的id
+                linode.addEventListener('click',function (){    //为每一个节点添加点击事件
+                    $.ajax({
+                        type:'GET',
+                        url:"http://127.0.0.1:5000/getindex", //跳转的位置是app.py的getindex部分
+                        data:{'id':this.id},    //传给后端的是游记的id
+                        success:function (data1){   //后端返回的是与该id有关的所有节点
+
+                            draw(data1['node'],data1['relation'],[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
+                            //绘制知识图谱
+                        }
+
+                    })
+
+
+                })
+                /*
+                下拉栏的标题部分
+                 */
+                var head=document.createElement("h2")
+                head.className="layui-colla-title"
+                head.innerHTML="记录"+j.toString()
+                j=j+1
+                linode.appendChild(head)
+
+                /*
+                下拉栏内容部分
+                */
+                content=document.createElement("div")
+                content.className="layui-colla-content"
+                /*旅游类型*/
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="旅游类型"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['companion']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+                /*旅游金额*/
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="花费"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['cost']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+                /*旅游时间*/
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="时间"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['date']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+                /*旅游时长*/
+                {
+                    item1=document.createElement("div")
+                    item1.style="display: inline-block;position: relative;width: 500px;height: 10px;margin-bottom: 10px"
+                    type=document.createElement("div")
+                    type.style="position: absolute;float: left;width: 160px;height: 20px"
+                    typekey=document.createElement("a")
+                    typekey.style="font-size: 16px;font-weight: bold"
+                    typekey.innerHTML="时长"
+                    type.appendChild(typekey)
+                    typename=document.createElement("div")
+                    typename.style="float: right;left: 200px;height:20px;position: absolute;width: 140px"
+                    a=document.createElement("a")
+                    a.style="font-size: 16px"
+                    a.innerHTML=node[i]['day']
+                    typename.appendChild(a)
+                    item1.appendChild(type)
+                    item1.appendChild(typename)
+                    content.appendChild(item1)
+                    linode.appendChild(content)
+                }
+
+                nodelist.appendChild(linode)    //插入
+            }
+        }
+
+        var title=document.getElementById("find")
+        title.innerHTML="共找到"+(j-1).toString()+"条相关记录"  //更新标题
+
+        layui.use('element', function () {
+            var element = layui.element;
+            layui.element.render()
+        })  //下拉框渲染
+
+    }
+</script>
+<!--draw函数定义-->
+<script>
     function draw(da,lin,cat) {
         var myChart = echarts.init(document.getElementById('main'));
-  option = {
+        console.log(da)
+        console.log(lin)
+        console.log(cat)
+        option = {
     title: {
       subtext: 'Default layout',
       top: 'bottom',
@@ -511,31 +614,5 @@ color: ["#5470c6",
         myChart.setOption(option);
     }
 </script>
-<script>
-    btn=document.getElementById("hide")
-    console.log(window)
-    btn.addEventListener('click',function (){
-        var side=document.getElementById("side")
-        var main=document.getElementById("main")
-        if(side.hidden==false)
-        {
-        main.style.width="1540px"
-        btn.style.left="1500px"
-        btn.src="../static/logo/out.png"
-        side.hidden=true
-
-        }
-        else
-        {
-            main.style.width="1000px"
-            btn.style.left="960px"
-            btn.src="../static/logo/in.png"
-            side.hidden=false
-        }
-        //draw(node,relation,[{"name":"美食"},{"name":"购物"},{"name":"娱乐"},{"name":"住宿"},{"name":"拜访"},{"name":"参观"},{"name":"摄影"},{"name":"旅游"}])
-
-    })
-</script>
-
 </body>
 </html>

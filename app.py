@@ -23,13 +23,13 @@ def get():
     nodedata = []
     relationdata = []
     for re in storage['relation']:
-        if (str(re['source']) == str(id) and str(re['name']=='hasEvent') and str(re['target']) not in idlist):
+        if (str(re['source']) == str(id) and str(re['name'])=='hasEvent'and str(re['target']) not in idlist):
             idlist.append(str(re['target']))
     for node in storage['node']:
-        if (str(node['id']) in idlist):
+        if (str(node['id']) in idlist and node not in nodedata):
             nodedata.append(node)
     for relation in storage['relation']:
-        if (str(relation['source']) in idlist) or (str(relation['target']) in idlist):
+        if (str(relation['source']) in idlist) and (str(relation['target']) in idlist and relation not in relationdata):
             relationdata.append(relation)
     return jsonify({'node': nodedata, 'relation': relationdata})
 
