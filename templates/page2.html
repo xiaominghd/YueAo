@@ -10,8 +10,8 @@
     <link th:href="${'/favicon.ico'}" rel="shortcut icon">
     <link rel="stylesheet" href="../static/page1.css">
     <style>
-        #index {
-                display: inline-block;
+    #index {
+    display: inline-block;
     left: 0px;
     width: 1540px;
     height: 80px;
@@ -87,7 +87,7 @@
 <div style="float: left;position: relative;margin-left: 80px;">
 <label style="float: left;position: absolute;padding-top: 5px;width:100px;height: 30px;font-family: Roboto ">选择旅游类型</label>
     <button class="layui-btn layui-btn-primary" id="demo2" style="float:left;width:300px;height:40px;position:relative;margin-left: 120px;margin-top: -2px">
-        <span  id="btntext2" style="float: left">所要的旅游类型都在这里</span>
+        <span  id="btntext2" style="float: left">各种旅游</span>
       <i class="layui-icon layui-icon-down layui-font-12" style="float: right"></i>
     </button>
 </div>
@@ -158,11 +158,11 @@
     },
     {
       title: '住宿'
-      ,href: '#3'
+      ,href: '#4'
     },
     {
       title: '旅游'
-      ,href: '#3'
+      ,href: '#5'
     }],
 
     click: function(e){
@@ -185,26 +185,27 @@
     elem: '#demo2'
     //,show: true
     ,data: [{
-      title: '美食'
-      ,href: '#1'
+      title: '夫妻游'
+      ,href: '#6'
     },{
-      title: '娱乐'
-      ,href: '#2'
+      title: '情侣游'
+      ,href: '#7'
     },{
-      title: '购物'
-      ,href: '#3'
+      title: '个人游'
+      ,href: '#8'
     },
     {
-      title: '住宿'
-      ,href: '#3'
+      title: '亲子游'
+      ,href: '#9'
     },
     {
-      title: '旅游'
-      ,href: '#3'
+      title: '好友游'
+      ,href: '#10'
     }],
     click: function(e){
         var btn=document.getElementById("btntext2")
                 btn.innerHTML=e['title']
+        sessionStorage.setItem('companion',e['title'])
 
     }
 
@@ -280,7 +281,8 @@
 
     btn.addEventListener('click',function ()
     {
-        var data={'startmonth':sessionStorage.getItem('startday'),'endmonth':sessionStorage.getItem('endday'),'type':sessionStorage.getItem('type')}        //在网页的存储中去获得当前输入的信息。
+        var data={'startmonth':sessionStorage.getItem('startday'),'endmonth':sessionStorage.getItem('endday'),
+            'type':sessionStorage.getItem('type'),'companion':sessionStorage.getItem('companion')}        //在网页的存储中去获得当前输入的信息。
         /*
         ajax，前后端交互部分
          */
